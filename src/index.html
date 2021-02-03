@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="pt-br" manifest="app.manifest">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="manifest" href="storage.manifest" />
+    <link rel="icon" href="img/logo-dark.svg" />
+
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+
+    <title>Sudoku</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg__primary--dark px-sm-5 px-3">
+        <a
+          class="d-flex"
+          tabindex="1 "
+          href="#board"
+          aria-label="pular para o Jogo"
+        >
+          <img
+            src="img/logo-light.svg"
+            alt="logo sudoku"
+            height="30px"
+            class="me-2 mobile-devices"
+            id="mobile-devices"
+          />
+          <h1 class="h3 mb-0">Sudoku</h1>
+        </a>
+        <div id="level" class="level_">
+          <button
+            class="btn btn-sm"
+            onclick="selectLevel('easy', event)"
+            id="btn-easy"
+            aria-label="nivel fácil"
+          >
+            Fácil
+          </button>
+          <button
+            class="btn btn-sm"
+            onclick="selectLevel('medium', event)"
+            id="btn-medium"
+            aria-label="nivel médio"
+          >
+            Médio
+          </button>
+          <button
+            class="btn btn-sm"
+            onclick="selectLevel('hard', event)"
+            id="btn-hard"
+            aria-label="nivel difícil"
+          >
+            Difícil
+          </button>
+        </div>
+      </nav>
+    </header>
+    <main class="w-100 bg-dark p-3 d-flex flex-column justify-content-center">
+      <section class="w-100 d-flex flex-column align-items-center">
+        <div
+          id="game-tools"
+          class="d-flex w-100 justify-content-center game-tools_"
+        >
+          <div class="mb-3">
+            <button class="btn btn-sm btn-dark" onclick="undo()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                class="btn-back_"
+                aria-label="desfazer jogada"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"
+                />
+              </svg>
+            </button>
+            <button class="btn btn-sm btn-dark" onclick="startOver()">
+              Recomeçar
+            </button>
+            <button class="btn btn-sm btn-dark" onclick="startNewGame()">
+              Novo Jogo
+            </button>
+          </div>
+        </div>
+        <form
+          id="board"
+          class="d-flex flex-column flex-nowrap align-content-center board_"
+        >
+          <!-- ROWS 1 TO 3 -->
+          <div class="d-flex flex-nowrap justify-content-center">
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-0">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="0"
+                  data-box="0"
+                  readonly
+                  aria-label="x0, y0"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="0"
+                  data-box="0"
+                  readonly
+                  aria-label="x1, y0"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="0"
+                  data-box="0"
+                  readonly
+                  aria-label="x2, y0"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="1"
+                  data-box="0"
+                  readonly
+                  aria-label="x0, y1"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="1"
+                  data-box="0"
+                  readonly
+                  aria-label="x1, y1"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="1"
+                  data-box="0"
+                  readonly
+                  aria-label="x2, y1"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="2"
+                  data-box="0"
+                  readonly
+                  aria-label="x0, y2"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="2"
+                  data-box="0"
+                  readonly
+                  aria-label="x1, y2"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="2"
+                  data-box="0"
+                  readonly
+                  aria-label="x2, y2"
+                />
+              </div>
+            </div>
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-1">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="0"
+                  data-box="1"
+                  readonly
+                  aria-label="x3, y0"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="0"
+                  data-box="1"
+                  readonly
+                  aria-label="x4, y0"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="0"
+                  data-box="1"
+                  readonly
+                  aria-label="x5, y0"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="1"
+                  data-box="1"
+                  readonly
+                  aria-label="x3, y1"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="1"
+                  data-box="1"
+                  readonly
+                  aria-label="x4, y1"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="1"
+                  data-box="1"
+                  readonly
+                  aria-label="x5, y1"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="2"
+                  data-box="1"
+                  readonly
+                  aria-label="x3, y2"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="2"
+                  data-box="1"
+                  readonly
+                  aria-label="x4, y2"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="2"
+                  data-box="1"
+                  readonly
+                  aria-label="x5, y2"
+                />
+              </div>
+            </div>
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-2">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="0"
+                  data-box="2"
+                  readonly
+                  aria-label="x6, y0"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="0"
+                  data-box="2"
+                  readonly
+                  aria-label="x7, y0"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="0"
+                  data-box="2"
+                  readonly
+                  aria-label="x8, y0"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="1"
+                  data-box="2"
+                  readonly
+                  aria-label="x6, y1"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="1"
+                  data-box="2"
+                  readonly
+                  aria-label="x7, y1"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="1"
+                  data-box="2"
+                  readonly
+                  aria-label="x8, y1"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="2"
+                  data-box="2"
+                  readonly
+                  aria-label="x6, y2"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="2"
+                  data-box="2"
+                  readonly
+                  aria-label="x7, y2"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="2"
+                  data-box="2"
+                  readonly
+                  aria-label="x8, y2"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- ROWS 4 TO 6 -->
+          <div class="d-flex flex-nowrap justify-content-center">
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-3">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="3"
+                  data-box="3"
+                  readonly
+                  aria-label="x0, y3"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="3"
+                  data-box="3"
+                  readonly
+                  aria-label="x1, y3"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="3"
+                  data-box="3"
+                  readonly
+                  aria-label="x2, y3"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="4"
+                  data-box="3"
+                  readonly
+                  aria-label="x0, y4"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="4"
+                  data-box="3"
+                  readonly
+                  aria-label="x1, y4"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="4"
+                  data-box="3"
+                  readonly
+                  aria-label="x2, y4"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="5"
+                  data-box="3"
+                  readonly
+                  aria-label="x0, y5"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="5"
+                  data-box="3"
+                  readonly
+                  aria-label="x1, y5"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="5"
+                  data-box="3"
+                  readonly
+                  aria-label="x2, y5"
+                />
+              </div>
+            </div>
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-4">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="3"
+                  data-box="4"
+                  readonly
+                  aria-label="x3, y3"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="3"
+                  data-box="4"
+                  readonly
+                  aria-label="x4, y3"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="3"
+                  data-box="4"
+                  readonly
+                  aria-label="x5, y3"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="4"
+                  data-box="4"
+                  readonly
+                  aria-label="x3, y4"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="4"
+                  data-box="4"
+                  readonly
+                  aria-label="x4, y4"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="4"
+                  data-box="4"
+                  readonly
+                  aria-label="x5, y4"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="5"
+                  data-box="4"
+                  readonly
+                  aria-label="x3, y5"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="5"
+                  data-box="4"
+                  readonly
+                  aria-label="x4, y5"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="5"
+                  data-box="4"
+                  readonly
+                  aria-label="x5, y5"
+                />
+              </div>
+            </div>
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-5">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="3"
+                  data-box="5"
+                  readonly
+                  aria-label="x6, y3"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="3"
+                  data-box="5"
+                  readonly
+                  aria-label="x7, y3"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="3"
+                  data-box="5"
+                  readonly
+                  aria-label="x8, y3"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="4"
+                  data-box="5"
+                  readonly
+                  aria-label="x6, y4"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="4"
+                  data-box="5"
+                  readonly
+                  aria-label="x7, y4"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="4"
+                  data-box="5"
+                  readonly
+                  aria-label="x8, y4"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="5"
+                  data-box="5"
+                  readonly
+                  aria-label="x6, y5"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="5"
+                  data-box="5"
+                  readonly
+                  aria-label="x7, y5"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="5"
+                  data-box="5"
+                  readonly
+                  aria-label="x8, y5"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- ROWS 7 TO 9 -->
+          <div class="d-flex flex-nowrap justify-content-center">
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-6">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="6"
+                  data-box="6"
+                  readonly
+                  aria-label="x0, y6"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="6"
+                  data-box="6"
+                  readonly
+                  aria-label="x1, y6"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="6"
+                  data-box="6"
+                  readonly
+                  aria-label="x2, y6"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="7"
+                  data-box="6"
+                  readonly
+                  aria-label="x0, y7"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="7"
+                  data-box="6"
+                  readonly
+                  aria-label="x1, y7"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="7"
+                  data-box="6"
+                  readonly
+                  aria-label="x2, y7"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="0"
+                  data-y="8"
+                  data-box="6"
+                  readonly
+                  aria-label="x0, y8"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="1"
+                  data-y="8"
+                  data-box="6"
+                  readonly
+                  aria-label="x1, y8"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="2"
+                  data-y="8"
+                  data-box="6"
+                  readonly
+                  aria-label="x2, y8"
+                />
+              </div>
+            </div>
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-7">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="6"
+                  data-box="7"
+                  readonly
+                  aria-label="x3, y6"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="6"
+                  data-box="7"
+                  readonly
+                  aria-label="x4, y6"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="6"
+                  data-box="7"
+                  readonly
+                  aria-label="x5, y6"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="7"
+                  data-box="7"
+                  readonly
+                  aria-label="x3, y7"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="7"
+                  data-box="7"
+                  readonly
+                  aria-label="x4, y7"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="7"
+                  data-box="7"
+                  readonly
+                  aria-label="x5, y7"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="3"
+                  data-y="8"
+                  data-box="7"
+                  readonly
+                  aria-label="x3, y8"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="4"
+                  data-y="8"
+                  data-box="7"
+                  readonly
+                  aria-label="x4, y8"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="5"
+                  data-y="8"
+                  data-box="7"
+                  readonly
+                  aria-label="x5, y8"
+                />
+              </div>
+            </div>
+            <div class="d-flex flex-nowrap flex-column m-1" id="box-8">
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="6"
+                  data-box="8"
+                  readonly
+                  aria-label="x6, y6"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="6"
+                  data-box="8"
+                  readonly
+                  aria-label="x7, y6"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="6"
+                  data-box="8"
+                  readonly
+                  aria-label="x8, y6"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="7"
+                  data-box="8"
+                  readonly
+                  aria-label="x6, y7"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="7"
+                  data-box="8"
+                  readonly
+                  aria-label="x7, y7"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="7"
+                  data-box="8"
+                  readonly
+                  aria-label="x8, y7"
+                />
+              </div>
+              <div class="d-flex nowrap">
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="6"
+                  data-y="8"
+                  data-box="8"
+                  readonly
+                  aria-label="x6, y8"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="7"
+                  data-y="8"
+                  data-box="8"
+                  readonly
+                  aria-label="x7, y8"
+                />
+                <input
+                  class="rounded"
+                  type="number"
+                  min="1"
+                  max="9"
+                  data-x="8"
+                  data-y="8"
+                  data-box="8"
+                  readonly
+                  aria-label="x8, y8"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+        <section id="numbers-bar" class="numbers-bar_ mt-2 mb-3">
+          <ul class="navbar-nav flex-row justify-content-between w-100">
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="1"
+                value="1"
+              >
+                1
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="2"
+                value="2"
+              >
+                2
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="3"
+                value="3"
+              >
+                3
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="4"
+                value="4"
+              >
+                4
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="5"
+                value="5"
+              >
+                5
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="6"
+                value="6"
+              >
+                6
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="7"
+                value="7"
+              >
+                7
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="8"
+                value="8"
+              >
+                8
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0"
+                data-numbers-bar="9"
+                value="9"
+              >
+                9
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-dark btn-sm p-0 d-flex justify-content-center align-items-center"
+                data-numbers-bar="erase"
+                value=""
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="btn-eraser_"
+                  viewBox="0 0 16 16"
+                  aria-label="apagar"
+                >
+                  <path
+                    d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414l-3.879-3.879zM8.746 13.547L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"
+                  />
+                </svg>
+              </button>
+            </li>
+          </ul>
+        </section>
+      </section>
+      <!-- SELECT LEVEL MODAL -->
+      <div
+        class="modal fade"
+        tabindex="-1"
+        id="selectLevelModal"
+        aria-labelledby="selectLevelModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0">
+              <h1 class="m-auto mt-4" id="selectLevelModalLabel">Nível</h1>
+            </div>
+            <div class="modal-body border-0 m-auto">
+              <button
+                type="button"
+                class="btn btn-secondary bg__primary"
+                data-bs-dismiss="modal"
+                onclick="selectLevel('easy', event)"
+                aria-label="nivel fácil"
+              >
+                Fácil
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary bg__primary"
+                data-bs-dismiss="modal"
+                onclick="selectLevel('medium', event)"
+                aria-label="nivel médio"
+              >
+                Médio
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary bg__primary"
+                data-bs-dismiss="modal"
+                onclick="selectLevel('hard', event)"
+                aria-label="nivel difícil"
+              >
+                Difícil
+              </button>
+            </div>
+            <div class="modal-footer border-0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- / SELECT LEVEL MODAL -->
+      <!-- RESUME GAME MODAL -->
+      <div
+        class="modal fade"
+        tabindex="-1"
+        id="resumeGameModal"
+        aria-labelledby="resumeGameModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0">
+              <h1 class="m-auto mt-4" id="resumeGameModalLabel">
+                Nivel:
+                <span id="resume-game-level"></span>
+              </h1>
+            </div>
+            <div class="modal-body border-0 m-auto">
+              <button
+                type="button"
+                class="btn btn-secondary bg__primary"
+                data-bs-dismiss="modal"
+                onclick="recoverGame()"
+              >
+                Continuar Jogo
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary bg__primary"
+                data-bs-dismiss="modal"
+                onclick="startNewGame()"
+              >
+                Novo Jogo
+              </button>
+            </div>
+            <button
+              type="button"
+              class="btn btn-sm rounded-0"
+              data-bs-dismiss="modal"
+              onclick="selectLevelModal()"
+            >
+              Escolher outro nível
+            </button>
+            <div class="modal-footer border-0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- / RESUME GAME MODAL -->
+      <!-- END GAME MODAL -->
+      <div
+        class="modal fade"
+        tabindex="-1"
+        id="completedGameModal"
+        aria-labelledby="completedGameModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header border-0"></div>
+            <div class="modal-body border-0 m-auto">
+              <p class="h1 text-center" id="completedGameModalLabel">
+                Parabéns!
+              </p>
+              <p class="text-center">Nível: <span id="modal-level"></span></p>
+              <button
+                type="button"
+                data-bs-dismiss="modal"
+                class="btn btn-secondary bg__primary w-100"
+                onclick="resetBoard()"
+              >
+                Novo Jogo
+              </button>
+              <button
+                type="button"
+                data-bs-dismiss="modal"
+                class="btn btn-secondary w-100 mt-2"
+              >
+                Sair
+              </button>
+            </div>
+            <div class="modal-footer border-0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- / END GAME MODAL -->
+    </main>
+    <footer class="bg__primary--dark py-2 d-flex w-100 justify-content-center">
+      <p class="m-0">
+        Desenvolvido por
+        <a
+          href="https://mmatsuzoe.vercel.app/"
+          class="footer__a"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Mayumi Matsuzoe</a
+        >
+      </p>
+    </footer>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/register.js"></script>
+    <script src="./js/sudoku.js"></script>
+    <script src="./js/validation.js"></script>
+    <script src="./js/scripts.js"></script>
+  </body>
+</html>

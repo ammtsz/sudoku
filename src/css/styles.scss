@@ -1,0 +1,145 @@
+$color__primary: rgb(0, 174, 204);
+$color__primary--dark: darken(rgb(0, 174, 204), 10);
+$color__error: red;
+$color__grey: rgb(80, 80, 80);
+$color__dark: rgb(34, 34, 34);
+$color__light: rgb(243, 243, 243);
+
+main {
+  min-height: calc(100vh - 48px - 35px);
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    color: $color__primary;
+  }
+}
+
+.bg__primary {
+  background-color: $color__primary;
+  border-color: $color__primary;
+  color: $color__light;
+  &:hover {
+    color: $color__light;
+  }
+}
+.bg__primary--dark {
+  background-color: $color__primary--dark;
+  border-color: $color__primary;
+  color: $color__light;
+}
+.text__primary {
+  color: $color__primary;
+}
+.border__highlighted {
+  border: 5px solid $color__primary !important;
+}
+.input__highlight {
+  background-color: rgba($color__light, 0.8);
+}
+.input__error--text {
+  color: $color__error !important;
+}
+.input__error--border {
+  border: 3px solid $color__error !important;
+}
+
+.mobile-devices {
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.level_ button {
+  color: $color__light;
+  &:hover {
+    color: $color__grey;
+  }
+}
+.board_ input {
+  width: min(10vw, 8vh);
+  height: min(10vw, 8vh);
+  font-size: min(5vw, 6vh);
+  text-align: center;
+  border: 1px solid $color__dark;
+  cursor: pointer;
+  box-shadow: 0 0 5px $color__light;
+
+  color: $color__primary;
+
+  &:hover {
+    border: 3px solid $color__primary;
+    box-sizing: border-box;
+  }
+  &:focus[data-fetched="true"] {
+    background-color: $color__light;
+  }
+  &:focus {
+    background-color: $color__grey;
+    text-shadow: 0 0 0 $color__primary;
+    color: transparent;
+  }
+  &[data-fetched="true"] {
+    color: $color__grey;
+  }
+
+  // Hide input number arrows
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+}
+.game-tools_ button {
+  &:hover {
+    color: $color__primary;
+    .btn-back_ {
+      fill: $color__primary;
+    }
+  }
+  .btn-back_ {
+    fill: $color__light;
+  }
+}
+.numbers-bar_ button {
+  width: min(8.7vw, 7vh);
+  height: min(8.7vw, 7vh);
+  line-height: min(8vw, 6.5vh);
+  font-size: min(5vw, 5vh);
+  margin: 0.09rem;
+
+  &:disabled {
+    color: $color__grey;
+  }
+
+  &:hover {
+    color: $color__primary;
+  }
+
+  .btn-eraser_ {
+    width: min(6vw, 4.5vh);
+    height: min(6vw, 4.5vh);
+    fill: $color__light;
+    &:hover {
+      fill: $color__primary;
+    }
+  }
+}
+
+footer {
+  font-size: 0.8rem;
+
+  .footer__a {
+    font-weight: bold;
+    color: $color__light;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

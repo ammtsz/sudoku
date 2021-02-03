@@ -1,0 +1,19 @@
+CACHE MANIFEST
+
+#v0
+
+CACHE:
+css/styles.css
+css/bootstrap.css
+
+js/bootstrap.bundle.min.js
+js/sudoku.js
+js/validation.js
+js/scripts.js
+
+img/logo-dark.svg
+img/logo-light.svg
+img/logo.jpg
+
+NETWORK:
+*

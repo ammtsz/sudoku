@@ -1,0 +1,13 @@
+{
+    "name": "Sudoku",
+    "start_url": "./",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "img/logo.jpg",
+            "sizes": "188x188",
+            "type": "image/jpg",
+            "purpose": "any"
+        }
+    ]
+}

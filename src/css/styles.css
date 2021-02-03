@@ -1,0 +1,106 @@
+main {
+  min-height: calc(100vh - 48px - 35px); }
+
+a {
+  text-decoration: none;
+  color: inherit; }
+  a:hover {
+    color: #00aecc; }
+
+.bg__primary {
+  background-color: #00aecc;
+  border-color: #00aecc;
+  color: #f3f3f3; }
+  .bg__primary:hover {
+    color: #f3f3f3; }
+
+.bg__primary--dark {
+  background-color: #008399;
+  border-color: #00aecc;
+  color: #f3f3f3; }
+
+.text__primary {
+  color: #00aecc; }
+
+.border__highlighted {
+  border: 5px solid #00aecc !important; }
+
+.input__highlight {
+  background-color: rgba(243, 243, 243, 0.8); }
+
+.input__error--text {
+  color: red !important; }
+
+.input__error--border {
+  border: 3px solid red !important; }
+
+@media only screen and (max-width: 768px) {
+  .mobile-devices {
+    display: none; } }
+
+.level_ button {
+  color: #f3f3f3; }
+  .level_ button:hover {
+    color: #505050; }
+
+.board_ input {
+  width: min(10vw, 8vh);
+  height: min(10vw, 8vh);
+  font-size: min(5vw, 6vh);
+  text-align: center;
+  border: 1px solid #222222;
+  cursor: pointer;
+  box-shadow: 0 0 5px #f3f3f3;
+  color: #00aecc;
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */ }
+  .board_ input:hover {
+    border: 3px solid #00aecc;
+    box-sizing: border-box; }
+  .board_ input:focus[data-fetched="true"] {
+    background-color: #f3f3f3; }
+  .board_ input:focus {
+    background-color: #505050;
+    text-shadow: 0 0 0 #00aecc;
+    color: transparent; }
+  .board_ input[data-fetched="true"] {
+    color: #505050; }
+  .board_ input::-webkit-outer-spin-button, .board_ input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .board_ input[type="number"] {
+    -moz-appearance: textfield; }
+
+.game-tools_ button:hover {
+  color: #00aecc; }
+  .game-tools_ button:hover .btn-back_ {
+    fill: #00aecc; }
+.game-tools_ button .btn-back_ {
+  fill: #f3f3f3; }
+
+.numbers-bar_ button {
+  width: min(8.7vw, 7vh);
+  height: min(8.7vw, 7vh);
+  line-height: min(8vw, 6.5vh);
+  font-size: min(5vw, 5vh);
+  margin: 0.09rem; }
+  .numbers-bar_ button:disabled {
+    color: #505050; }
+  .numbers-bar_ button:hover {
+    color: #00aecc; }
+  .numbers-bar_ button .btn-eraser_ {
+    width: min(6vw, 4.5vh);
+    height: min(6vw, 4.5vh);
+    fill: #f3f3f3; }
+    .numbers-bar_ button .btn-eraser_:hover {
+      fill: #00aecc; }
+
+footer {
+  font-size: 0.8rem; }
+  footer .footer__a {
+    font-weight: bold;
+    color: #f3f3f3; }
+    footer .footer__a:hover {
+      text-decoration: underline; }
+
+/*# sourceMappingURL=styles.css.map */

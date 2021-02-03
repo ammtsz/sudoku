@@ -1,0 +1,12 @@
+{
+  "name": "mycode",
+  "version": "1.0.0",
+  "main": "scripts.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
