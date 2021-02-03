@@ -103,7 +103,7 @@ class Sudoku {
 
       const dataset = event.target.dataset;
 
-      if(!JSON.parse(dataset.fetched) && this.mobile){
+      if(!JSON.parse(dataset.fetched) && !this.isMobile){
         event.target.readOnly = false
       }
 
